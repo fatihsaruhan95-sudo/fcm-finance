@@ -16,17 +16,23 @@ h1{font-size:20px;font-weight:500;margin-bottom:.25rem}
 .sr{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .sl{font-size:13px;color:#5f5e5a;min-width:165px}
 .sv{font-size:13px;font-weight:500;min-width:105px;text-align:right;color:#1a1a18}
+.sv-sub{font-size:11px;color:#888780;min-width:105px;text-align:right}
 input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:#d3d1c7;outline:none}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#1a1a18;cursor:pointer;border:2px solid #f5f5f3}
 input[type=number]{padding:4px 8px;font-size:13px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;outline:none}
 input[type=number]:focus{border-color:#888780}
 hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .card{background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-/* Banks */
 .banks{display:flex;flex-wrap:wrap;gap:8px;margin:.75rem 0}
 .bb{font-size:12px;padding:5px 12px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
 .bb:hover{background:#ebe9e2}
 .bb.act{background:#deedf8;color:#0c447c;border-color:#85b7eb}
+/* pesinar info row */
+.pesinar-info{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:8px 12px;background:#ebe9e2;border-radius:8px}
+.pesinar-info .pi-label{font-size:12px;color:#5f5e5a;flex:1}
+.pesinar-info .pi-val{font-size:14px;font-weight:500;color:#1a1a18}
+.pesinar-info .pi-pct{font-size:11px;color:#888780;margin-left:6px}
+.ltv-warn{font-size:11px;padding:5px 10px;border-radius:8px;margin-top:6px;background:#fde8e8;color:#791f1f}
 /* Metric grid */
 .mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:.75rem 0}
 .mc{background:#ebe9e2;border-radius:8px;padding:.75rem 1rem}
@@ -72,7 +78,6 @@ hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .dr-amt{font-size:12px;font-weight:500;color:#1a1a18;white-space:nowrap}
 .badge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
 .badge.banka{background:#deedf8;color:#0c447c}
-.badge.cep{background:#fde8e8;color:#791f1f}
 /* Partners */
 .pg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.75rem 0}
 @media(max-width:560px){.pg{grid-template-columns:1fr}}
@@ -87,7 +92,7 @@ hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .pt tr.tot td{font-weight:500;background:#f1efe8}
 td.pos{color:#27500a!important}
 td.neg{color:#791f1f!important}
-/* Masraf inputs */
+/* Masraf */
 .mrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:.5px solid rgba(0,0,0,.08)}
 .mrow:last-child{border-bottom:none}
 .minput{width:95px;padding:3px 6px;font-size:12px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;text-align:right}
@@ -107,7 +112,6 @@ td.neg{color:#791f1f!important}
 .al{font-size:12px;padding:7px 12px;border-radius:8px;margin:.5rem 0}
 .al.ok{background:#e0f0e5;color:#27500a}
 .al.wn{background:#fef3e2;color:#633806}
-/* Chart */
 .chtw{position:relative;width:100%;margin:.75rem 0}
 .tg{display:flex;gap:8px;margin-bottom:.75rem;flex-wrap:wrap}
 .tb{font-size:12px;padding:4px 10px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
@@ -122,7 +126,6 @@ td.neg{color:#791f1f!important}
   <h1>Ev Ortaklığı Simülatörü</h1>
   <p class="subtitle">Ortak ev alım senaryolarını modelleyin — finansal özet, kredi, kira, TÜFE ve tüm maliyetler</p>
 
-  <!-- PARAMETRELER -->
   <div class="card">
     <div class="sec">banka seç</div>
     <div class="banks">
@@ -136,10 +139,39 @@ td.neg{color:#791f1f!important}
     </div>
 
     <div class="sec">ev & kredi</div>
-    <div class="sr"><span class="sl">Ev fiyatı</span><input type="range" min="1000000" max="20000000" step="100000" value="3800000" id="evF" oninput="calc()"><span class="sv" id="evFv">₺3.800.000</span></div>
-    <div class="sr"><span class="sl">Nakit peşinat oranı</span><input type="range" min="10" max="80" step="1" value="30" id="nak" oninput="calc()"><span class="sv" id="nakv">%30</span></div>
-    <div class="sr"><span class="sl">Faiz oranı (aylık)</span><input type="range" min="1" max="6" step="0.01" value="2.49" id="faiz" oninput="syncFaiz()"><span class="sv" id="faizv">%2,49 / ay</span></div>
-    <div class="sr"><span class="sl">Kredi vadesi</span><input type="range" min="1" max="30" step="1" value="10" id="vade" oninput="calc()"><span class="sv" id="vadev">10 yıl</span></div>
+    <div class="sr">
+      <span class="sl">Ev fiyatı</span>
+      <input type="range" min="1000000" max="20000000" step="100000" value="3800000" id="evF" oninput="calc()">
+      <span class="sv" id="evFv">₺3.800.000</span>
+    </div>
+    <div class="sr">
+      <span class="sl">Kredi tutarı</span>
+      <input type="range" min="100000" max="19000000" step="100000" value="2660000" id="krediSlider" oninput="calc()">
+      <div style="min-width:105px;text-align:right">
+        <div class="sv" id="krediV">₺2.660.000</div>
+        <div class="sv-sub" id="krediPct">%70 LTV</div>
+      </div>
+    </div>
+    <!-- Peşinat otomatik hesaplanıyor -->
+    <div class="pesinar-info">
+      <span class="pi-label">Gereken peşinat (ev fiyatı − kredi)</span>
+      <span>
+        <span class="pi-val" id="pesinarVal">₺1.140.000</span>
+        <span class="pi-pct" id="pesinarPct">%30</span>
+      </span>
+    </div>
+    <div id="ltvWarn" style="display:none" class="ltv-warn">Bankalar genellikle en fazla %80 LTV (kredi/değer) kabul eder.</div>
+
+    <div class="sr">
+      <span class="sl">Faiz oranı (aylık)</span>
+      <input type="range" min="1" max="6" step="0.01" value="2.49" id="faiz" oninput="syncFaiz()">
+      <span class="sv" id="faizv">%2,49 / ay</span>
+    </div>
+    <div class="sr">
+      <span class="sl">Kredi vadesi</span>
+      <input type="range" min="1" max="30" step="1" value="10" id="vade" oninput="calc()">
+      <span class="sv" id="vadev">10 yıl</span>
+    </div>
 
     <hr class="d">
     <div class="sec">banka masrafları</div>
@@ -180,26 +212,22 @@ td.neg{color:#791f1f!important}
     <div class="si"><label>Arkadaşının payı (%)</label><input type="number" min="1" max="99" value="50" id="p2" oninput="sp2(this)"></div>
   </div>
 
-  <!-- FİNANSAL ÖZET -->
   <div class="card">
     <div class="sec" style="margin-top:0">finansal özet</div>
     <div class="flow" id="flowBox"></div>
   </div>
 
-  <!-- KREDİ ÖZETİ -->
   <div class="card">
     <div class="sec" style="margin-top:0">kredi & maliyet özeti</div>
     <div class="mg" id="ozet"></div>
   </div>
 
-  <!-- KİŞİ BAZINDA -->
   <div class="card">
     <div class="sec" style="margin-top:0">kişi bazında aylık net ödeme</div>
     <div id="alrt"></div>
     <div class="pg" id="pGrid"></div>
   </div>
 
-  <!-- ÖDEME PLANI -->
   <div class="card">
     <div class="sec" style="margin-top:0">ay ay ödeme planı</div>
     <div class="tg">
@@ -223,7 +251,6 @@ td.neg{color:#791f1f!important}
     </div>
   </div>
 
-  <!-- GRAFİK -->
   <div class="card">
     <div class="sec" style="margin-top:0">kümülatif net ödeme</div>
     <div class="legend">
@@ -291,7 +318,14 @@ function cappedKira(k0,tufeY,tavan,yil){return Math.min(k0*Math.pow(1+tufeY,yil)
 
 function calc(){
   const evF=parseFloat(document.getElementById('evF').value);
-  const nakP=parseFloat(document.getElementById('nak').value)/100;
+  // Kredi slider'ı ev fiyatını aşmasın
+  const krediSlider=document.getElementById('krediSlider');
+  krediSlider.max=Math.round(evF*0.9);
+  let kredi=parseFloat(krediSlider.value);
+  if(kredi>evF*0.9){kredi=Math.round(evF*0.7);krediSlider.value=kredi;}
+  const pesinar=evF-kredi;
+  const ltvPct=kredi/evF*100;
+
   const faizA=parseFloat(document.getElementById('faiz').value)/100;
   const vadeY=parseInt(document.getElementById('vade').value);
   const kira0=parseFloat(document.getElementById('kira').value);
@@ -304,35 +338,38 @@ function calc(){
   const ipotek=parseFloat(document.getElementById('mIpotek').value)||0;
   const mBankaToplam=tahsis+eksper+ipotek;
 
+  // UI güncellemeleri
   document.getElementById('evFv').textContent=fk(evF);
-  document.getElementById('nakv').textContent=pct(nakP*100);
+  document.getElementById('krediV').textContent=fk(kredi);
+  document.getElementById('krediPct').textContent='%'+Math.round(ltvPct)+' LTV';
+  document.getElementById('pesinarVal').textContent=fk(pesinar);
+  document.getElementById('pesinarPct').textContent='%'+Math.round(pesinar/evF*100);
   document.getElementById('faizv').textContent=pct(parseFloat(document.getElementById('faiz').value))+' / ay';
   document.getElementById('vadev').textContent=vadeY+' yıl';
   document.getElementById('kirav').textContent=fk(kira0);
   document.getElementById('tavanv').textContent=fk(tavan);
   document.getElementById('mToplamDisp').textContent=f(mBankaToplam);
   document.getElementById('mKisiDisp').textContent='kişi başı: '+f(mBankaToplam*0.5);
+  document.getElementById('ltvWarn').style.display=ltvPct>80?'block':'none';
 
-  const kredi=evF*(1-nakP);
-  const pesinar=evF*nakP;
   const n=vadeY*12;
   const taksit=faizA>0?kredi*(faizA*Math.pow(1+faizA,n))/(Math.pow(1+faizA,n)-1):kredi/n;
 
-  // Krediden düşülen: sadece tahsis ücreti
+  // Krediden sadece tahsis düşülür
   const netEle=kredi-tahsis;
 
-  // Cepten ödenen yan giderler
+  // Cepten ödenen giderler
   const tapu=evF*0.02;
   const dask=evF*0.001;
   const konut=evF*0.002;
   const hayat=kredi*0.003;
   const ceptenGiderler=[
-    {name:'Tapu harcı (alıcı %2)', desc:'Satış bedeli üzerinden',      dot:'#E24B4A', val:tapu},
-    {name:'DASK',                   desc:'Zorunlu deprem sigortası',    dot:'#D85A30', val:dask},
-    {name:'Konut sigortası',        desc:'Yıllık, banka şart koşar',    dot:'#EF9F27', val:konut},
-    {name:'Hayat sigortası',        desc:'Kredi tutarına göre',         dot:'#378ADD', val:hayat},
-    {name:'Ekspertiz ücreti',       desc:'Bağımsız değerleme',          dot:'#85B7EB', val:eksper},
-    {name:'İpotek tesis ücreti',    desc:'Tapu müdürlüğü + noter',     dot:'#0C447C', val:ipotek},
+    {name:'Tapu harcı (alıcı %2)', desc:'Satış bedeli üzerinden',   dot:'#E24B4A', val:tapu},
+    {name:'DASK',                   desc:'Zorunlu deprem sigortası', dot:'#D85A30', val:dask},
+    {name:'Konut sigortası',        desc:'Yıllık, banka şart koşar', dot:'#EF9F27', val:konut},
+    {name:'Hayat sigortası',        desc:'Kredi tutarına göre',      dot:'#378ADD', val:hayat},
+    {name:'Ekspertiz ücreti',       desc:'Bağımsız değerleme',       dot:'#85B7EB', val:eksper},
+    {name:'İpotek tesis ücreti',    desc:'Tapu müdürlüğü + noter',  dot:'#0C447C', val:ipotek},
   ];
   const ceptenToplam=ceptenGiderler.reduce((s,g)=>s+g.val,0);
   const nakitGereken=pesinar+ceptenToplam;
@@ -352,7 +389,7 @@ function calc(){
     plan.push({ay:i,yil:yil+1,taksit,ana,faiz:fv,kalan,kiraAy,capped:kiraAy>=tavan});
   }
 
-  G={evF,kredi,pesinar,nakP,faizA,vadeY,taksit,n,plan,kira0,tavan,tufeY,pp1,pp2,tahsis,ceptenToplam,nakitGereken,netEle,toplamFaiz,kiraIlk,kiraFinal,tavanYil,ceptenGiderler};
+  G={evF,kredi,pesinar,ltvPct,faizA,vadeY,taksit,n,plan,kira0,tavan,tufeY,pp1,pp2,tahsis,ceptenToplam,nakitGereken,netEle,toplamFaiz,kiraIlk,kiraFinal,tavanYil,ceptenGiderler};
 
   document.getElementById('tavanBadge').textContent=kira0<tavan?(tavanYil<=vadeY?tavanYil+'. yılda tavana ulaşır':'tavan aşılmıyor'):'baştan tavanda';
   document.getElementById('kiraPreview').innerHTML=Array.from({length:Math.min(vadeY,12)},(_,i)=>{
@@ -368,8 +405,7 @@ function calc(){
 }
 
 function renderFlow(){
-  const{evF,kredi,pesinar,nakP,taksit,vadeY,netEle,ceptenToplam,nakitGereken,pp1,pp2,tahsis,ceptenGiderler}=G;
-
+  const{evF,kredi,pesinar,ltvPct,taksit,vadeY,netEle,ceptenToplam,nakitGereken,pp1,pp2,tahsis,ceptenGiderler}=G;
   const ceptenRows=ceptenGiderler.map(g=>`
     <div class="dr">
       <div class="dr-left"><div class="dr-dot" style="background:${g.dot}"></div>
@@ -389,7 +425,7 @@ function renderFlow(){
       </div>
     </div>
 
-    <div class="connector"><div class="conn-line"></div><span class="conn-label">%${Math.round((1-nakP)*100)} LTV kredi çekiliyor</span></div>
+    <div class="connector"><div class="conn-line"></div><span class="conn-label">%${Math.round(ltvPct)} LTV kredi çekiliyor</span></div>
 
     <div class="flow-card">
       <div class="flow-row">
@@ -441,7 +477,7 @@ function renderFlow(){
           <div>
             <div class="flow-label">Peşinat (ev fiyatı − kredi)</div>
             <div class="flow-val">${fk(pesinar)}</div>
-            <div class="flow-sub">ev değerinin %${Math.round(nakP*100)}'i</div>
+            <div class="flow-sub">ev değerinin %${Math.round(pesinar/evF*100)}'i</div>
           </div>
           <span class="flow-tag" style="background:#fde8e8;color:#791f1f">cepten</span>
         </div>
@@ -489,13 +525,13 @@ function renderFlow(){
 }
 
 function renderOzet(){
-  const{evF,kredi,taksit,toplamFaiz,nakitGereken,ceptenToplam,pesinar}=G;
+  const{evF,kredi,pesinar,taksit,toplamFaiz,nakitGereken,ceptenToplam}=G;
   document.getElementById('ozet').innerHTML=`
     <div class="mc"><div class="ml">Ev fiyatı</div><div class="mv">${fk(evF)}</div></div>
     <div class="mc"><div class="ml">Kredi tutarı</div><div class="mv">${fk(kredi)}</div></div>
+    <div class="mc"><div class="ml">Peşinat</div><div class="mv">${fk(pesinar)}</div><div class="ms">%${Math.round(pesinar/evF*100)} oranında</div></div>
     <div class="mc"><div class="ml">Aylık taksit</div><div class="mv">${fk(taksit)}</div></div>
     <div class="mc dn"><div class="ml">Toplam faiz yükü</div><div class="mv">${fk(toplamFaiz)}</div><div class="ms">anapara üstü ${pct((toplamFaiz/kredi)*100)}</div></div>
-    <div class="mc"><div class="ml">Yan giderler (cepten)</div><div class="mv">${fk(ceptenToplam)}</div></div>
     <div class="mc hi"><div class="ml">Toplam nakit ihtiyacı</div><div class="mv">${fk(nakitGereken)}</div><div class="ms">peşinat + cepten giderler</div></div>
   `;
 }
