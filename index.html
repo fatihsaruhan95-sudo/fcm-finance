@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ev Ortaklığı Simülatörü</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a18;min-height:100vh;padding:2rem 1rem}
+.container{max-width:860px;margin:0 auto}
+h1{font-size:20px;font-weight:500;margin-bottom:.25rem;color:#1a1a18}
+.subtitle{font-size:13px;color:#888780;margin-bottom:2rem}
+.sec{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:.08em;margin:1.5rem 0 .75rem}
+.sr{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sl{font-size:13px;color:#5f5e5a;min-width:165px}
+.sv{font-size:13px;font-weight:500;min-width:100px;text-align:right;color:#1a1a18}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:#d3d1c7;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#1a1a18;cursor:pointer;border:2px solid #f5f5f3}
+input[type=number]{padding:4px 8px;font-size:13px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;outline:none}
+input[type=number]:focus{border-color:#888780}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:.75rem 0}
+.mc{background:#ebe9e2;border-radius:8px;padding:.75rem 1rem}
+.ml{font-size:11px;color:#888780;margin-bottom:4px}
+.mv{font-size:16px;font-weight:500;color:#1a1a18}
+.ms{font-size:11px;color:#888780;margin-top:2px}
+.mc.hi{background:#deedf8}.mc.hi .mv{color:#0c447c}
+.mc.ok{background:#e0f0e5}.mc.ok .mv{color:#27500a}
+.mc.dn{background:#fde8e8}.mc.dn .mv{color:#791f1f}
+hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
+.banks{display:flex;flex-wrap:wrap;gap:8px;margin:.75rem 0}
+.bb{font-size:12px;padding:5px 12px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer;transition:all .15s}
+.bb:hover{background:#ebe9e2}
+.bb.act{background:#deedf8;color:#0c447c;border-color:#85b7eb}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.75rem 0}
+@media(max-width:600px){.pg{grid-template-columns:1fr}}
+.pc{background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:12px;overflow:hidden}
+.ph{padding:.6rem 1rem;background:#f1efe8;font-size:12px;font-weight:500;color:#5f5e5a}
+.pt{width:100%;border-collapse:collapse;font-size:12px}
+.pt th{padding:5px 8px;text-align:right;color:#888780;font-weight:500;border-bottom:.5px solid rgba(0,0,0,.08);font-size:11px;white-space:nowrap}
+.pt th:first-child{text-align:left}
+.pt td{padding:4px 8px;text-align:right;color:#1a1a18;border-bottom:.5px solid rgba(0,0,0,.06);white-space:nowrap}
+.pt td:first-child{text-align:left;color:#888780}
+.pt tr:last-child td{border-bottom:none}
+.pt tr.tot td{font-weight:500;background:#f1efe8}
+td.pos{color:#27500a!important}
+td.neg{color:#791f1f!important}
+.si{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.si label{font-size:13px;color:#5f5e5a;min-width:165px}
+.chtw{position:relative;width:100%;margin:.75rem 0}
+.tg{display:flex;gap:8px;margin-bottom:.75rem;flex-wrap:wrap}
+.tb{font-size:12px;padding:4px 10px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
+.tb.act{background:#deedf8;color:#0c447c;border-color:#85b7eb}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px;font-size:12px;color:#888780}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0}
+.al{font-size:12px;padding:7px 12px;border-radius:8px;margin:.5rem 0}
+.al.ok{background:#e0f0e5;color:#27500a}
+.al.wn{background:#fef3e2;color:#633806}
+.mrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:.5px solid rgba(0,0,0,.08)}
+.mrow:last-child{border-bottom:none}
+.minput{width:95px;padding:3px 6px;font-size:12px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;text-align:right}
+.tufe-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tp{font-size:11px;padding:3px 9px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
+.tp.act{background:#fef3e2;color:#633806;border-color:#fac775}
+.kira-preview{display:flex;flex-wrap:wrap;gap:8px;margin:.75rem 0}
+.kp{background:#ebe9e2;border-radius:8px;padding:.4rem .75rem;min-width:80px}
+.kp-y{font-size:10px;color:#888780}
+.kp-v{font-size:12px;font-weight:500;color:#1a1a18}
+.kp.capped .kp-v{color:#854f0b}
+.tavan-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;background:#fef3e2;color:#854f0b;margin-left:8px;vertical-align:middle}
+.card{background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Ev Ortaklığı Simülatörü</h1>
+  <p class="subtitle">Ortak ev alım senaryolarını modelleyin — kredi, kira, TÜFE ve gizli maliyetler dahil</p>
+
+  <div class="card">
+    <div class="sec">banka seç</div>
+    <div class="banks">
+      <button class="bb act" onclick="setBank(2.49,49100,this)">QNB %2,49</button>
+      <button class="bb" onclick="setBank(2.49,45000,this)">Ziraat %2,49</button>
+      <button class="bb" onclick="setBank(2.49,48000,this)">Halkbank %2,49</button>
+      <button class="bb" onclick="setBank(2.50,52000,this)">İş Bankası %2,50</button>
+      <button class="bb" onclick="setBank(2.60,51000,this)">Akbank %2,60</button>
+      <button class="bb" onclick="setBank(2.90,49100,this)">Garanti %2,90</button>
+      <button class="bb" onclick="setBank(3.35,55000,this)">Piyasa ort. %3,35</button>
+    </div>
+
+    <div class="sec">ev parametreleri</div>
+    <div class="sr"><span class="sl">Ev fiyatı</span><input type="range" min="1000000" max="20000000" step="100000" value="5000000" id="evF" oninput="calc()"><span class="sv" id="evFv">₺5.000.000</span></div>
+    <div class="sr"><span class="sl">Nakit peşinat</span><input type="range" min="10" max="80" step="1" value="30" id="nak" oninput="calc()"><span class="sv" id="nakv">%30</span></div>
+
+    <hr class="d">
+    <div class="sec">kredi parametreleri</div>
+    <div class="sr"><span class="sl">Faiz oranı (aylık)</span><input type="range" min="1" max="6" step="0.01" value="2.49" id="faiz" oninput="syncFaiz()"><span class="sv" id="faizv">%2,49 / ay</span></div>
+    <div class="sr"><span class="sl">Kredi vadesi</span><input type="range" min="1" max="30" step="1" value="10" id="vade" oninput="calc()"><span class="sv" id="vadev">10 yıl</span></div>
+
+    <hr class="d">
+    <div class="sec">banka masrafları</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div>
+        <div class="mrow"><span style="color:#5f5e5a">Tahsis ücreti</span><input type="number" class="minput" id="mTahsis" value="12500" oninput="calc()"></div>
+        <div class="mrow"><span style="color:#5f5e5a">Ekspertiz ücreti</span><input type="number" class="minput" id="mEksper" value="33000" oninput="calc()"></div>
+        <div class="mrow"><span style="color:#5f5e5a">İpotek tesis ücreti</span><input type="number" class="minput" id="mIpotek" value="3600" oninput="calc()"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:0 .5rem">
+        <div class="ml">Toplam banka masrafı</div>
+        <div class="mv" id="mToplamDisp" style="font-size:18px">₺49.100</div>
+        <div class="ms" id="mKisiDisp">kişi başı: ₺24.550</div>
+      </div>
+    </div>
+
+    <hr class="d">
+    <div class="sec">kira parametreleri</div>
+    <div class="sr"><span class="sl">Başlangıç aylık kira</span><input type="range" min="5000" max="150000" step="1000" value="30000" id="kira" oninput="calc()"><span class="sv" id="kirav">₺30.000</span></div>
+    <div class="sr">
+      <span class="sl">Kira tavan<span id="tavanBadge" class="tavan-badge">aktif</span></span>
+      <input type="range" min="10000" max="200000" step="1000" value="70000" id="tavan" oninput="calc()">
+      <span class="sv" id="tavanv">₺70.000</span>
+    </div>
+    <div class="sec" style="margin-top:.75rem">yıllık artış oranı (tavana kadar)</div>
+    <div class="tufe-presets">
+      <button class="tp" onclick="setTufe(20,this)">%20</button>
+      <button class="tp act" onclick="setTufe(40,this)">%40</button>
+      <button class="tp" onclick="setTufe(60,this)">%60</button>
+      <button class="tp" onclick="setTufe(80,this)">%80</button>
+    </div>
+    <div class="sr"><span class="sl">Yıllık artış</span><input type="range" min="5" max="120" step="1" value="40" id="tufe" oninput="syncTufe()"><span class="sv" id="tufev">%40 / yıl</span></div>
+    <div class="sec">kira yıllara göre seyir</div>
+    <div class="kira-preview" id="kiraPreview"></div>
+
+    <hr class="d">
+    <div class="sec">ortaklık payları</div>
+    <div class="si"><label>Senin payın (%)</label><input type="number" min="1" max="99" value="50" id="p1" oninput="sp1(this)"></div>
+    <div class="si"><label>Arkadaşının payı (%)</label><input type="number" min="1" max="99" value="50" id="p2" oninput="sp2(this)"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec">toplam başlangıç maliyeti</div>
+    <div class="mg" id="ozet"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec">kişi bazında net ödeme özeti</div>
+    <div id="alrt"></div>
+    <div class="pg" id="pGrid"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec">ay ay ödeme planı</div>
+    <div class="tg">
+      <button class="tb act" id="tbS" onclick="setPlan('sen')">Sen</button>
+      <button class="tb" id="tbA" onclick="setPlan('ark')">Arkadaşın</button>
+      <button class="tb" id="tbT" onclick="setPlan('top')">Toplam</button>
+    </div>
+    <div style="overflow-x:auto;border:.5px solid rgba(0,0,0,.1);border-radius:12px;max-height:400px;overflow-y:auto">
+      <table class="pt">
+        <thead style="position:sticky;top:0;background:#f1efe8;z-index:1"><tr>
+          <th style="text-align:left">Ay</th>
+          <th>Taksit payı</th>
+          <th>Ana para</th>
+          <th>Faiz</th>
+          <th>Kalan anapara</th>
+          <th>Kira payı</th>
+          <th>Net ödeme</th>
+        </tr></thead>
+        <tbody id="planBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec">kümülatif net ödeme</div>
+    <div class="legend">
+      <span><i style="background:#378ADD"></i>Sen — tavanlı kira</span>
+      <span><i style="background:#1D9E75"></i>Arkadaşın — tavanlı kira</span>
+      <span><i style="background:#B4B2A9"></i>Sen — sabit kira (karş.)</span>
+    </div>
+    <div class="chtw" style="height:280px"><canvas id="cht"></canvas></div>
+  </div>
+
+  <p style="font-size:11px;color:#b4b2a9;text-align:center;margin-top:1rem">Hesaplamalar bilgilendirme amaçlıdır. Finansal karar almadan önce profesyonel danışmanlık alınız.</p>
+</div>
+
+<script>
+let chartInst=null,planMode='sen',G={};
+const fmtTR=n=>Math.round(n).toLocaleString('tr-TR');
+const f=n=>'₺'+fmtTR(n);
+const fk=n=>{const a=Math.abs(n);const s=n<0?'-':'';if(a>=1000000)return s+'₺'+(a/1000000).toFixed(2).replace('.',',')+' mn';if(a>=1000)return s+'₺'+Math.round(a/1000)+'B';return(n<0?'-':'')+'₺'+fmtTR(Math.abs(n));};
+const pct=n=>'%'+parseFloat(n).toFixed(2).replace('.',',');
+
+function setBank(rate,masraf,el){
+  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');
+  document.getElementById('faiz').value=rate;
+  document.getElementById('mTahsis').value=Math.round(masraf*0.255);
+  document.getElementById('mEksper').value=Math.round(masraf*0.672);
+  document.getElementById('mIpotek').value=Math.round(masraf*0.073);
+  syncFaiz();
+}
+function syncFaiz(){
+  const v=parseFloat(document.getElementById('faiz').value);
+  document.getElementById('faizv').textContent=pct(v)+' / ay';
+  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('act'));
+  calc();
+}
+function setTufe(val,el){
+  document.querySelectorAll('.tp').forEach(b=>b.classList.remove('act'));
+  el.classList.add('act');
+  document.getElementById('tufe').value=val;
+  document.getElementById('tufev').textContent='%'+val+' / yıl';
+  calc();
+}
+function syncTufe(){
+  const v=parseFloat(document.getElementById('tufe').value);
+  document.getElementById('tufev').textContent='%'+v+' / yıl';
+  document.querySelectorAll('.tp').forEach(b=>b.classList.remove('act'));
+  calc();
+}
+function sp1(el){let v=Math.min(99,Math.max(1,parseInt(el.value)||50));el.value=v;document.getElementById('p2').value=100-v;calc();}
+function sp2(el){let v=Math.min(99,Math.max(1,parseInt(el.value)||50));el.value=v;document.getElementById('p1').value=100-v;calc();}
+function setPlan(m){
+  planMode=m;
+  document.getElementById('tbS').className='tb'+(m==='sen'?' act':'');
+  document.getElementById('tbA').className='tb'+(m==='ark'?' act':'');
+  document.getElementById('tbT').className='tb'+(m==='top'?' act':'');
+  renderPlan();
+}
+function cappedKira(kira0,tufeY,tavan,yil){return Math.min(kira0*Math.pow(1+tufeY,yil),tavan);}
+
+function calc(){
+  const evF=parseFloat(document.getElementById('evF').value);
+  const nakP=parseFloat(document.getElementById('nak').value)/100;
+  const faizA=parseFloat(document.getElementById('faiz').value)/100;
+  const vadeY=parseInt(document.getElementById('vade').value);
+  const kira0=parseFloat(document.getElementById('kira').value);
+  const tavan=parseFloat(document.getElementById('tavan').value);
+  const tufeY=parseFloat(document.getElementById('tufe').value)/100;
+  const pp1=parseFloat(document.getElementById('p1').value)/100;
+  const pp2=1-pp1;
+  const mT=parseFloat(document.getElementById('mTahsis').value)||0;
+  const mE=parseFloat(document.getElementById('mEksper').value)||0;
+  const mI=parseFloat(document.getElementById('mIpotek').value)||0;
+  const mToplam=mT+mE+mI;
+
+  document.getElementById('evFv').textContent=fk(evF);
+  document.getElementById('nakv').textContent=pct(nakP*100);
+  document.getElementById('faizv').textContent=pct(parseFloat(document.getElementById('faiz').value))+' / ay';
+  document.getElementById('vadev').textContent=vadeY+' yıl';
+  document.getElementById('kirav').textContent=fk(kira0);
+  document.getElementById('tavanv').textContent=fk(tavan);
+  document.getElementById('mToplamDisp').textContent=f(mToplam);
+  document.getElementById('mKisiDisp').textContent='kişi başı: '+f(mToplam*0.5);
+
+  const nakit=evF*nakP;
+  const kredi=evF-nakit;
+  const tapuA=evF*0.02;
+  const dask=evF*0.001;
+  const n=vadeY*12;
+  let taksit=0;
+  if(faizA>0&&kredi>0){taksit=kredi*(faizA*Math.pow(1+faizA,n))/(Math.pow(1+faizA,n)-1);}
+
+  const plan=[];
+  let kalan=kredi;
+  for(let i=1;i<=n;i++){
+    const yil=Math.floor((i-1)/12);
+    const kiraAy=cappedKira(kira0,tufeY,tavan,yil);
+    const fv=kalan*faizA;
+    const ana=taksit-fv;
+    kalan=Math.max(0,kalan-ana);
+    plan.push({ay:i,yil:yil+1,taksit,ana,faiz:fv,kalan,kiraAy,capped:kiraAy>=tavan});
+  }
+
+  const baslangic=nakit+tapuA+dask+mToplam;
+  const toplamFaiz=(taksit*n)-kredi;
+  const kiraIlk=cappedKira(kira0,tufeY,tavan,0);
+  const kiraFinal=cappedKira(kira0,tufeY,tavan,vadeY-1);
+  const tavanYil=kira0>=tavan?0:Math.ceil(Math.log(tavan/kira0)/Math.log(1+tufeY));
+  G={evF,nakit,kredi,tapuA,dask,mToplam,taksit,n,plan,kira0,tavan,tufeY,pp1,pp2,faizA,vadeY,baslangic,toplamFaiz,kiraFinal,tavanYil};
+
+  document.getElementById('tavanBadge').textContent=kira0<tavan?(tavanYil<=vadeY?tavanYil+'. yılda tavana ulaşır':'tavan aşılmıyor'):'baştan tavanda';
+
+  const netAy1=kiraIlk*pp1-taksit*pp1;
+  const netAy2=kiraIlk*pp2-taksit*pp2;
+  const netFin1=kiraFinal*pp1-taksit*pp1;
+
+  document.getElementById('ozet').innerHTML=`
+    <div class="mc"><div class="ml">Ev fiyatı</div><div class="mv">${fk(evF)}</div></div>
+    <div class="mc"><div class="ml">Peşinat</div><div class="mv">${fk(nakit)}</div><div class="ms">%${Math.round(nakP*100)}</div></div>
+    <div class="mc"><div class="ml">Tapu + DASK</div><div class="mv">${fk(tapuA+dask)}</div></div>
+    <div class="mc"><div class="ml">Banka masrafları</div><div class="mv">${fk(mToplam)}</div></div>
+    <div class="mc hi"><div class="ml">Toplam nakit ihtiyacı</div><div class="mv">${fk(baslangic)}</div></div>
+    <div class="mc"><div class="ml">Kredi tutarı</div><div class="mv">${fk(kredi)}</div></div>
+    <div class="mc"><div class="ml">Aylık taksit</div><div class="mv">${fk(taksit)}</div></div>
+    <div class="mc dn"><div class="ml">Toplam faiz yükü</div><div class="mv">${fk(toplamFaiz)}</div><div class="ms">${pct((toplamFaiz/kredi)*100)} üstü</div></div>
+  `;
+
+  document.getElementById('kiraPreview').innerHTML=Array.from({length:Math.min(vadeY,12)},(_,i)=>{
+    const v=cappedKira(kira0,tufeY,tavan,i);
+    return `<div class="kp${v>=tavan?' capped':''}"><div class="kp-y">${i+1}. yıl</div><div class="kp-v">${fk(v)}</div></div>`;
+  }).join('');
+
+  document.getElementById('alrt').innerHTML=taksit>kiraIlk
+    ?`<div class="al wn">1. yılda taksit kira gelirinden yüksek.${tavanYil>0&&tavanYil<=vadeY?' '+tavanYil+'. yılda tavana ('+fk(tavan)+') ulaşıp sabit kalıyor.':''}</div>`
+    :`<div class="al ok">Başlangıçtan itibaren kira taksiti karşılıyor.${tavanYil>0&&tavanYil<=vadeY?' '+tavanYil+'. yılda tavana ('+fk(tavan)+') ulaşıp sabit kalıyor.':''}</div>`;
+
+  document.getElementById('pGrid').innerHTML=`
+    <div class="pc">
+      <div class="ph">Sen — %${Math.round(pp1*100)}</div>
+      <table class="pt" style="margin:0">
+        <tr><td>Başlangıç toplam</td><td style="text-align:right;font-weight:500">${fk(baslangic*pp1)}</td></tr>
+        <tr><td>Aylık taksit payı</td><td style="text-align:right">${fk(taksit*pp1)}</td></tr>
+        <tr><td>1. yıl kira payı</td><td style="text-align:right;color:#27500a">${fk(kiraIlk*pp1)}</td></tr>
+        <tr><td>Son yıl kira payı</td><td style="text-align:right;color:#27500a">${fk(kiraFinal*pp1)}</td></tr>
+        <tr class="tot"><td>1. yıl net ödeme</td><td class="${netAy1>=0?'pos':'neg'}" style="text-align:right">${fk(-netAy1)}</td></tr>
+        <tr class="tot"><td>Son yıl net ödeme</td><td class="${netFin1>=0?'pos':'neg'}" style="text-align:right">${fk(-netFin1)}</td></tr>
+      </table>
+    </div>
+    <div class="pc">
+      <div class="ph">Arkadaşın — %${Math.round(pp2*100)}</div>
+      <table class="pt" style="margin:0">
+        <tr><td>Başlangıç toplam</td><td style="text-align:right;font-weight:500">${fk(baslangic*pp2)}</td></tr>
+        <tr><td>Aylık taksit payı</td><td style="text-align:right">${fk(taksit*pp2)}</td></tr>
+        <tr><td>1. yıl kira payı</td><td style="text-align:right;color:#27500a">${fk(kiraIlk*pp2)}</td></tr>
+        <tr><td>Son yıl kira payı</td><td style="text-align:right;color:#27500a">${fk(kiraFinal*pp2)}</td></tr>
+        <tr class="tot"><td>1. yıl net ödeme</td><td class="${netAy2>=0?'pos':'neg'}" style="text-align:right">${fk(-netAy2)}</td></tr>
+        <tr class="tot"><td>Son yıl net ödeme</td><td class="${(kiraFinal*pp2-taksit*pp2)>=0?'pos':'neg'}" style="text-align:right">${fk(-(kiraFinal*pp2-taksit*pp2))}</td></tr>
+      </table>
+    </div>
+  `;
+  renderPlan();
+  renderChart();
+}
+
+function renderPlan(){
+  const{plan,pp1,pp2,n}=G;
+  if(!plan||!plan.length)return;
+  const ratio=planMode==='sen'?pp1:planMode==='ark'?pp2:1;
+  let rows='';
+  for(let i=0;i<n;i++){
+    const r=plan[i];
+    const tak=r.taksit*ratio,ana=r.ana*ratio,fv=r.faiz*ratio,kiraPay=r.kiraAy*ratio,net=tak-kiraPay;
+    rows+=`<tr>
+      <td>${r.ay}<span style="font-size:10px;color:#b4b2a9;margin-left:3px">${r.yil}.yıl</span></td>
+      <td>${fk(tak)}</td><td>${fk(ana)}</td><td>${fk(fv)}</td><td>${fk(r.kalan*ratio)}</td>
+      <td style="color:#27500a">${fk(kiraPay)}${r.capped?'<span style="font-size:9px;color:#854f0b;margin-left:2px">↑tavan</span>':''}</td>
+      <td class="${net<=0?'pos':'neg'}">${fk(net)}</td>
+    </tr>`;
+  }
+  document.getElementById('planBody').innerHTML=rows;
+}
+
+function renderChart(){
+  const{plan,pp1,pp2,n,kira0}=G;
+  if(!plan||!plan.length)return;
+  const labels=[],d1=[],d2=[],d1s=[];
+  let k1=0,k2=0,k1s=0;
+  const step=Math.max(1,Math.floor(n/80));
+  for(let i=0;i<n;i+=step){
+    const r=plan[i];
+    k1+=(r.taksit*pp1)-(r.kiraAy*pp1);
+    k2+=(r.taksit*pp2)-(r.kiraAy*pp2);
+    k1s+=(r.taksit*pp1)-(kira0*pp1);
+    labels.push(r.ay+'.');
+    d1.push(Math.round(k1));d2.push(Math.round(k2));d1s.push(Math.round(k1s));
+  }
+  if(chartInst)chartInst.destroy();
+  chartInst=new Chart(document.getElementById('cht'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Sen',data:d1,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:.3,pointRadius:0,borderWidth:2,fill:true},
+      {label:'Arkadaşın',data:d2,borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.07)',tension:.3,pointRadius:0,borderWidth:2,fill:true},
+      {label:'Sen sabit',data:d1s,borderColor:'#B4B2A9',tension:.3,pointRadius:0,borderWidth:1.5,borderDash:[4,3],fill:false}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'₺'+ctx.parsed.y.toLocaleString('tr-TR')}}},
+      scales:{
+        x:{ticks:{maxTicksLimit:10,font:{size:11}},grid:{display:false}},
+        y:{ticks:{callback:v=>{const a=Math.abs(v),s=v<0?'-':'';return s+'₺'+(a>=1000000?(a/1000000).toFixed(1)+'mn':a>=1000?Math.round(a/1000)+'B':a)},font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}
+      }
+    }
+  });
+}
+
+calc();
+</script>
+</body>
+</html>
