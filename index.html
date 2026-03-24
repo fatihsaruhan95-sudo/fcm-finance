@@ -9,23 +9,25 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a18;min-height:100vh;padding:2rem 1rem}
 .container{max-width:900px;margin:0 auto}
-h1{font-size:20px;font-weight:500;margin-bottom:.25rem;color:#1a1a18}
+h1{font-size:20px;font-weight:500;margin-bottom:.25rem}
 .subtitle{font-size:13px;color:#888780;margin-bottom:2rem}
 .sec{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:.08em;margin:1.5rem 0 .75rem}
 .sec:first-child{margin-top:0}
 .sr{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.sl{font-size:13px;color:#5f5e5a;min-width:160px}
-.sv{font-size:13px;font-weight:500;min-width:100px;text-align:right;color:#1a1a18}
+.sl{font-size:13px;color:#5f5e5a;min-width:165px}
+.sv{font-size:13px;font-weight:500;min-width:105px;text-align:right;color:#1a1a18}
 input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:#d3d1c7;outline:none}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#1a1a18;cursor:pointer;border:2px solid #f5f5f3}
 input[type=number]{padding:4px 8px;font-size:13px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;outline:none}
 input[type=number]:focus{border-color:#888780}
 hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .card{background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+/* Banks */
 .banks{display:flex;flex-wrap:wrap;gap:8px;margin:.75rem 0}
 .bb{font-size:12px;padding:5px 12px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
 .bb:hover{background:#ebe9e2}
 .bb.act{background:#deedf8;color:#0c447c;border-color:#85b7eb}
+/* Metric grid */
 .mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:.75rem 0}
 .mc{background:#ebe9e2;border-radius:8px;padding:.75rem 1rem}
 .ml{font-size:11px;color:#888780;margin-bottom:4px}
@@ -37,23 +39,20 @@ hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 /* Flow */
 .flow{display:flex;flex-direction:column;gap:0;margin:.75rem 0}
 .flow-card{background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:12px;overflow:hidden}
-.flow-row{display:flex;align-items:stretch;min-height:64px}
+.flow-row{display:flex;align-items:stretch;min-height:62px}
 .flow-accent{width:4px;flex-shrink:0}
 .flow-body{flex:1;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.flow-label{font-size:12px;color:#888780;margin-bottom:3px}
-.flow-val{font-size:20px;font-weight:500;color:#1a1a18}
+.flow-label{font-size:12px;color:#888780;margin-bottom:2px}
+.flow-val{font-size:19px;font-weight:500;color:#1a1a18}
 .flow-sub{font-size:11px;color:#888780;margin-top:2px}
-.flow-tag{font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;align-self:center;flex-shrink:0}
-.connector{display:flex;align-items:center;justify-content:center;height:28px;position:relative}
+.flow-tag{font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.connector{display:flex;align-items:center;justify-content:center;height:26px;position:relative}
 .conn-line{position:absolute;left:50%;top:0;bottom:0;width:.5px;background:rgba(0,0,0,.1);transform:translateX(-50%)}
 .conn-label{position:relative;z-index:1;font-size:11px;color:#888780;background:#fff;border:.5px solid rgba(0,0,0,.1);border-radius:8px;padding:2px 8px}
 .nakit-card{background:#e0f0e5;border:.5px solid #9fe1cb;border-radius:12px;overflow:hidden}
 .nakit-card .flow-val{color:#085041}
 .nakit-card .flow-label{color:#27500a}
 .nakit-card .flow-sub{color:#3b6d11}
-.warn-flow{background:#fef3e2;border:.5px solid #fac775;border-radius:12px;overflow:hidden}
-.warn-flow .flow-val{color:#633806}
-.warn-flow .flow-label{color:#854f0b}
 .pg-split{display:grid;grid-template-columns:1fr 1fr;border-top:.5px solid rgba(0,0,0,.08)}
 .pg-cell{padding:.6rem 1rem;border-right:.5px solid rgba(0,0,0,.08)}
 .pg-cell:last-child{border-right:none}
@@ -63,18 +62,17 @@ hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .expand-row:hover .flow-body{background:#f8f7f4}
 .expand-icon{font-size:11px;color:#b4b2a9;transition:transform .2s;margin-left:5px;display:inline-block}
 .expand-icon.open{transform:rotate(180deg)}
-.gider-detail{border-top:.5px solid rgba(0,0,0,.08)}
-.gd-item{display:flex;justify-content:space-between;align-items:center;padding:7px 1rem 7px 1.5rem;border-bottom:.5px solid rgba(0,0,0,.06)}
-.gd-item:last-child{border-bottom:none}
-.gd-left{display:flex;align-items:center;gap:8px}
-.gdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.gd-name{font-size:12px;color:#1a1a18}
-.gd-desc{font-size:11px;color:#888780}
-.gd-amt{font-size:12px;font-weight:500;color:#1a1a18;white-space:nowrap}
+.detail-rows{border-top:.5px solid rgba(0,0,0,.08)}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:7px 1rem 7px 1.5rem;border-bottom:.5px solid rgba(0,0,0,.06)}
+.dr:last-child{border-bottom:none}
+.dr-left{display:flex;align-items:center;gap:8px}
+.dr-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dr-name{font-size:12px;color:#1a1a18}
+.dr-how{font-size:11px;color:#888780;margin-top:1px}
+.dr-amt{font-size:12px;font-weight:500;color:#1a1a18;white-space:nowrap}
 .badge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
-.badge.zorunlu{background:#fde8e8;color:#791f1f}
 .badge.banka{background:#deedf8;color:#0c447c}
-.badge.opsiyonel{background:#fef3e2;color:#633806}
+.badge.cep{background:#fde8e8;color:#791f1f}
 /* Partners */
 .pg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.75rem 0}
 @media(max-width:560px){.pg{grid-template-columns:1fr}}
@@ -89,13 +87,13 @@ hr.d{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:1.25rem 0}
 .pt tr.tot td{font-weight:500;background:#f1efe8}
 td.pos{color:#27500a!important}
 td.neg{color:#791f1f!important}
-/* Masraf */
+/* Masraf inputs */
 .mrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:.5px solid rgba(0,0,0,.08)}
 .mrow:last-child{border-bottom:none}
 .minput{width:95px;padding:3px 6px;font-size:12px;border:.5px solid #d3d1c7;border-radius:8px;background:#fff;color:#1a1a18;text-align:right}
 /* Kira */
 .si{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.si label{font-size:13px;color:#5f5e5a;min-width:160px}
+.si label{font-size:13px;color:#5f5e5a;min-width:165px}
 .si input[type=number]{width:70px}
 .tufe-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .tp{font-size:11px;padding:3px 9px;border-radius:8px;border:.5px solid #d3d1c7;background:transparent;color:#5f5e5a;cursor:pointer}
@@ -122,8 +120,9 @@ td.neg{color:#791f1f!important}
 <body>
 <div class="container">
   <h1>Ev Ortaklığı Simülatörü</h1>
-  <p class="subtitle">Ortak ev alım senaryolarını modelleyin — finansal özet, kredi, kira, TÜFE ve tüm gizli maliyetler</p>
+  <p class="subtitle">Ortak ev alım senaryolarını modelleyin — finansal özet, kredi, kira, TÜFE ve tüm maliyetler</p>
 
+  <!-- PARAMETRELER -->
   <div class="card">
     <div class="sec">banka seç</div>
     <div class="banks">
@@ -137,7 +136,7 @@ td.neg{color:#791f1f!important}
     </div>
 
     <div class="sec">ev & kredi</div>
-    <div class="sr"><span class="sl">Ev fiyatı</span><input type="range" min="1000000" max="20000000" step="100000" value="5000000" id="evF" oninput="calc()"><span class="sv" id="evFv">₺5.000.000</span></div>
+    <div class="sr"><span class="sl">Ev fiyatı</span><input type="range" min="1000000" max="20000000" step="100000" value="3800000" id="evF" oninput="calc()"><span class="sv" id="evFv">₺3.800.000</span></div>
     <div class="sr"><span class="sl">Nakit peşinat oranı</span><input type="range" min="10" max="80" step="1" value="30" id="nak" oninput="calc()"><span class="sv" id="nakv">%30</span></div>
     <div class="sr"><span class="sl">Faiz oranı (aylık)</span><input type="range" min="1" max="6" step="0.01" value="2.49" id="faiz" oninput="syncFaiz()"><span class="sv" id="faizv">%2,49 / ay</span></div>
     <div class="sr"><span class="sl">Kredi vadesi</span><input type="range" min="1" max="30" step="1" value="10" id="vade" oninput="calc()"><span class="sv" id="vadev">10 yıl</span></div>
@@ -181,22 +180,26 @@ td.neg{color:#791f1f!important}
     <div class="si"><label>Arkadaşının payı (%)</label><input type="number" min="1" max="99" value="50" id="p2" oninput="sp2(this)"></div>
   </div>
 
+  <!-- FİNANSAL ÖZET -->
   <div class="card">
     <div class="sec" style="margin-top:0">finansal özet</div>
     <div class="flow" id="flowBox"></div>
   </div>
 
+  <!-- KREDİ ÖZETİ -->
   <div class="card">
-    <div class="sec" style="margin-top:0">başlangıç maliyeti özeti</div>
+    <div class="sec" style="margin-top:0">kredi & maliyet özeti</div>
     <div class="mg" id="ozet"></div>
   </div>
 
+  <!-- KİŞİ BAZINDA -->
   <div class="card">
     <div class="sec" style="margin-top:0">kişi bazında aylık net ödeme</div>
     <div id="alrt"></div>
     <div class="pg" id="pGrid"></div>
   </div>
 
+  <!-- ÖDEME PLANI -->
   <div class="card">
     <div class="sec" style="margin-top:0">ay ay ödeme planı</div>
     <div class="tg">
@@ -220,6 +223,7 @@ td.neg{color:#791f1f!important}
     </div>
   </div>
 
+  <!-- GRAFİK -->
   <div class="card">
     <div class="sec" style="margin-top:0">kümülatif net ödeme</div>
     <div class="legend">
@@ -234,21 +238,12 @@ td.neg{color:#791f1f!important}
 </div>
 
 <script>
-let chartInst=null,planMode='sen',G={},giderExpanded=false;
+let chartInst=null, planMode='sen', G={}, exp1=false, exp2=false;
+
 const fmtN=n=>Math.round(n).toLocaleString('tr-TR');
 const f=n=>'₺'+fmtN(n);
 const fk=n=>{const a=Math.abs(n);const s=n<0?'-':'';if(a>=1000000)return s+'₺'+(a/1000000).toFixed(2).replace('.',',')+' mn';if(a>=1000)return s+'₺'+Math.round(a/1000)+'B';return(n<0?'-':'')+'₺'+fmtN(Math.abs(n));};
 const pct=n=>'%'+parseFloat(n).toFixed(2).replace('.',',');
-
-const GIDERLER=[
-  {id:'tapu',  name:'Tapu harcı (alıcı)', desc:'Satış bedelinin %2\'si',         type:'zorunlu',  dot:'#E24B4A', calc:(ev,kr)=>ev*0.02},
-  {id:'dask',  name:'DASK',               desc:'Zorunlu deprem sigortası ~%0,1',  type:'zorunlu',  dot:'#D85A30', calc:(ev,kr)=>ev*0.001},
-  {id:'konut', name:'Konut sigortası',    desc:'Yıllık, banka şart koşar',        type:'opsiyonel',dot:'#EF9F27', calc:(ev,kr)=>ev*0.002},
-  {id:'hayat', name:'Hayat sigortası',    desc:'Kredi tutarına göre',             type:'banka',    dot:'#378ADD', calc:(ev,kr)=>kr*0.003},
-  {id:'eksper',name:'Ekspertiz ücreti',   desc:'Bağımsız değerleme',              type:'banka',    dot:'#85B7EB', calc:()=>parseFloat(document.getElementById('mEksper').value)||33000},
-  {id:'tahsis',name:'Dosya & tahsis',     desc:'Bankadan bankaya değişir',        type:'banka',    dot:'#185FA5', calc:()=>parseFloat(document.getElementById('mTahsis').value)||12500},
-  {id:'ipotek',name:'İpotek tesis ücreti',desc:'Tapu müdürlüğü + noter',         type:'banka',    dot:'#0C447C', calc:()=>parseFloat(document.getElementById('mIpotek').value)||3600},
-];
 
 function setBank(rate,masraf,el){
   document.querySelectorAll('.bb').forEach(b=>b.classList.remove('act'));
@@ -285,12 +280,12 @@ function setPlan(m){
   document.getElementById('tbT').className='tb'+(m==='top'?' act':'');
   renderPlan();
 }
-function toggleGider(){
-  giderExpanded=!giderExpanded;
-  const ic=document.getElementById('gExpIcon');
-  const det=document.getElementById('gExpDetail');
-  if(ic)ic.className='expand-icon'+(giderExpanded?' open':'');
-  if(det)det.style.display=giderExpanded?'block':'none';
+function toggleExp(id){
+  if(id===1){exp1=!exp1;}else{exp2=!exp2;}
+  const ic=document.getElementById('ic'+id);
+  const det=document.getElementById('det'+id);
+  if(ic)ic.className='expand-icon'+((id===1?exp1:exp2)?' open':'');
+  if(det)det.style.display=(id===1?exp1:exp2)?'block':'none';
 }
 function cappedKira(k0,tufeY,tavan,yil){return Math.min(k0*Math.pow(1+tufeY,yil),tavan);}
 
@@ -304,10 +299,10 @@ function calc(){
   const tufeY=parseFloat(document.getElementById('tufe').value)/100;
   const pp1=parseFloat(document.getElementById('p1').value)/100;
   const pp2=1-pp1;
-  const mT=parseFloat(document.getElementById('mTahsis').value)||0;
-  const mE=parseFloat(document.getElementById('mEksper').value)||0;
-  const mI=parseFloat(document.getElementById('mIpotek').value)||0;
-  const mBanka=mT+mE+mI;
+  const tahsis=parseFloat(document.getElementById('mTahsis').value)||0;
+  const eksper=parseFloat(document.getElementById('mEksper').value)||0;
+  const ipotek=parseFloat(document.getElementById('mIpotek').value)||0;
+  const mBankaToplam=tahsis+eksper+ipotek;
 
   document.getElementById('evFv').textContent=fk(evF);
   document.getElementById('nakv').textContent=pct(nakP*100);
@@ -315,18 +310,32 @@ function calc(){
   document.getElementById('vadev').textContent=vadeY+' yıl';
   document.getElementById('kirav').textContent=fk(kira0);
   document.getElementById('tavanv').textContent=fk(tavan);
-  document.getElementById('mToplamDisp').textContent=f(mBanka);
-  document.getElementById('mKisiDisp').textContent='kişi başı: '+f(mBanka*0.5);
+  document.getElementById('mToplamDisp').textContent=f(mBankaToplam);
+  document.getElementById('mKisiDisp').textContent='kişi başı: '+f(mBankaToplam*0.5);
 
   const kredi=evF*(1-nakP);
   const pesinar=evF*nakP;
   const n=vadeY*12;
   const taksit=faizA>0?kredi*(faizA*Math.pow(1+faizA,n))/(Math.pow(1+faizA,n)-1):kredi/n;
 
-  const gVals=GIDERLER.map(g=>({...g,val:g.calc(evF,kredi)}));
-  const gToplam=gVals.reduce((s,g)=>s+g.val,0);
-  const netEle=kredi-gToplam;
-  const nakitGereken=pesinar+gToplam;
+  // Krediden düşülen: sadece tahsis ücreti
+  const netEle=kredi-tahsis;
+
+  // Cepten ödenen yan giderler
+  const tapu=evF*0.02;
+  const dask=evF*0.001;
+  const konut=evF*0.002;
+  const hayat=kredi*0.003;
+  const ceptenGiderler=[
+    {name:'Tapu harcı (alıcı %2)', desc:'Satış bedeli üzerinden',      dot:'#E24B4A', val:tapu},
+    {name:'DASK',                   desc:'Zorunlu deprem sigortası',    dot:'#D85A30', val:dask},
+    {name:'Konut sigortası',        desc:'Yıllık, banka şart koşar',    dot:'#EF9F27', val:konut},
+    {name:'Hayat sigortası',        desc:'Kredi tutarına göre',         dot:'#378ADD', val:hayat},
+    {name:'Ekspertiz ücreti',       desc:'Bağımsız değerleme',          dot:'#85B7EB', val:eksper},
+    {name:'İpotek tesis ücreti',    desc:'Tapu müdürlüğü + noter',     dot:'#0C447C', val:ipotek},
+  ];
+  const ceptenToplam=ceptenGiderler.reduce((s,g)=>s+g.val,0);
+  const nakitGereken=pesinar+ceptenToplam;
   const toplamFaiz=(taksit*n)-kredi;
   const tavanYil=kira0>=tavan?0:Math.ceil(Math.log(tavan/kira0)/Math.log(1+tufeY));
   const kiraIlk=cappedKira(kira0,tufeY,tavan,0);
@@ -343,7 +352,7 @@ function calc(){
     plan.push({ay:i,yil:yil+1,taksit,ana,faiz:fv,kalan,kiraAy,capped:kiraAy>=tavan});
   }
 
-  G={evF,kredi,pesinar,nakP,faizA,vadeY,taksit,n,plan,kira0,tavan,tufeY,pp1,pp2,mBanka,gToplam,nakitGereken,netEle,toplamFaiz,kiraIlk,kiraFinal,tavanYil};
+  G={evF,kredi,pesinar,nakP,faizA,vadeY,taksit,n,plan,kira0,tavan,tufeY,pp1,pp2,tahsis,ceptenToplam,nakitGereken,netEle,toplamFaiz,kiraIlk,kiraFinal,tavanYil,ceptenGiderler};
 
   document.getElementById('tavanBadge').textContent=kira0<tavan?(tavanYil<=vadeY?tavanYil+'. yılda tavana ulaşır':'tavan aşılmıyor'):'baştan tavanda';
   document.getElementById('kiraPreview').innerHTML=Array.from({length:Math.min(vadeY,12)},(_,i)=>{
@@ -351,31 +360,23 @@ function calc(){
     return `<div class="kp${v>=tavan?' capped':''}"><div class="kp-y">${i+1}. yıl</div><div class="kp-v">${fk(v)}</div></div>`;
   }).join('');
 
-  renderFlow(gVals);
+  renderFlow();
   renderOzet();
   renderPartners();
   renderPlan();
   renderChart();
 }
 
-function renderFlow(gVals){
-  const{evF,kredi,pesinar,nakP,taksit,vadeY,netEle,gToplam,nakitGereken,pp1,pp2}=G;
-  const badgeLabel={zorunlu:'zorunlu',banka:'banka',opsiyonel:'opsiyonel'};
-  const giderRows=gVals.map(g=>`
-    <div class="gd-item">
-      <div class="gd-left">
-        <div class="gdot" style="background:${g.dot}"></div>
-        <div><span class="gd-name">${g.name}</span><span class="badge ${g.type}">${badgeLabel[g.type]}</span>
-        <div class="gd-desc">${g.desc}</div></div>
-      </div>
-      <span class="gd-amt">${fk(g.val)}</span>
-    </div>`).join('');
+function renderFlow(){
+  const{evF,kredi,pesinar,nakP,taksit,vadeY,netEle,ceptenToplam,nakitGereken,pp1,pp2,tahsis,ceptenGiderler}=G;
 
-  const isWarn=netEle<0;
-  const netClass=isWarn?'warn-flow':'flow-card';
-  const netAccent=isWarn?'#BA7517':'#1D9E75';
-  const netLabel=isWarn?'Dikkat — masraflar krediyi aşıyor':'Ele geçen net rakam';
-  const netSub=isWarn?'yan giderler için ek nakit gerekiyor':'kredi − tüm yan giderler';
+  const ceptenRows=ceptenGiderler.map(g=>`
+    <div class="dr">
+      <div class="dr-left"><div class="dr-dot" style="background:${g.dot}"></div>
+        <div><div class="dr-name">${g.name}</div><div class="dr-how">${g.desc}</div></div>
+      </div>
+      <span class="dr-amt">${fk(g.val)}</span>
+    </div>`).join('');
 
   document.getElementById('flowBox').innerHTML=`
     <div class="flow-card">
@@ -387,7 +388,9 @@ function renderFlow(gVals){
         </div>
       </div>
     </div>
+
     <div class="connector"><div class="conn-line"></div><span class="conn-label">%${Math.round((1-nakP)*100)} LTV kredi çekiliyor</span></div>
+
     <div class="flow-card">
       <div class="flow-row">
         <div class="flow-accent" style="background:#378ADD"></div>
@@ -401,20 +404,36 @@ function renderFlow(gVals){
         </div>
       </div>
     </div>
-    <div class="connector"><div class="conn-line"></div><span class="conn-label">yan giderler düşülüyor</span></div>
-    <div class="${netClass}">
-      <div class="flow-row">
-        <div class="flow-accent" style="background:${netAccent}"></div>
+
+    <div class="connector"><div class="conn-line"></div><span class="conn-label">tahsis ücreti düşülüyor</span></div>
+
+    <div class="flow-card">
+      <div class="expand-row flow-row" onclick="toggleExp(1)">
+        <div class="flow-accent" style="background:#185FA5"></div>
         <div class="flow-body">
           <div>
-            <div class="flow-label">${netLabel}</div>
-            <div class="flow-val">${fk(Math.abs(netEle))}</div>
-            <div class="flow-sub">${netSub}</div>
+            <div class="flow-label">Hesabına geçen net kredi <span class="expand-icon" id="ic1">▼</span></div>
+            <div class="flow-val">${fk(netEle)}</div>
+            <div class="flow-sub">kredi − tahsis ücreti (${fk(tahsis)})</div>
           </div>
+          <span class="flow-tag" style="background:#deedf8;color:#0c447c">hesaba geçer</span>
+        </div>
+      </div>
+      <div id="det1" style="display:${exp1?'block':'none'}" class="detail-rows">
+        <div class="dr">
+          <div class="dr-left"><div class="dr-dot" style="background:#185FA5"></div>
+            <div>
+              <div class="dr-name">Dosya & tahsis ücreti<span class="badge banka">banka keser</span></div>
+              <div class="dr-how">Kredi kullandırımında otomatik düşülür</div>
+            </div>
+          </div>
+          <span class="dr-amt">−${fk(tahsis)}</span>
         </div>
       </div>
     </div>
+
     <div class="connector"><div class="conn-line"></div><span class="conn-label">peşinat ayrılıyor</span></div>
+
     <div class="flow-card">
       <div class="flow-row">
         <div class="flow-accent" style="background:#E24B4A"></div>
@@ -422,13 +441,32 @@ function renderFlow(gVals){
           <div>
             <div class="flow-label">Peşinat (ev fiyatı − kredi)</div>
             <div class="flow-val">${fk(pesinar)}</div>
-            <div class="flow-sub">ev değerinin %${Math.round(nakP*100)}'i · cepten</div>
+            <div class="flow-sub">ev değerinin %${Math.round(nakP*100)}'i</div>
           </div>
           <span class="flow-tag" style="background:#fde8e8;color:#791f1f">cepten</span>
         </div>
       </div>
     </div>
+
+    <div class="connector"><div class="conn-line"></div></div>
+
+    <div class="flow-card">
+      <div class="expand-row flow-row" onclick="toggleExp(2)">
+        <div class="flow-accent" style="background:#888780"></div>
+        <div class="flow-body">
+          <div>
+            <div class="flow-label">Cepten ödenen yan giderler <span class="expand-icon" id="ic2">▼</span></div>
+            <div class="flow-val" style="font-size:16px">${fk(ceptenToplam)}</div>
+            <div class="flow-sub">tapu · dask · sigortalar · ekspertiz · ipotek</div>
+          </div>
+          <span class="flow-tag" style="background:#ebe9e2;color:#5f5e5a">detay için tıkla</span>
+        </div>
+      </div>
+      <div id="det2" style="display:${exp2?'block':'none'}" class="detail-rows">${ceptenRows}</div>
+    </div>
+
     <div class="connector"><div class="conn-line"></div><span class="conn-label">toplam nakit ihtiyacı</span></div>
+
     <div class="nakit-card">
       <div class="flow-row">
         <div class="flow-accent" style="background:#085041"></div>
@@ -436,7 +474,7 @@ function renderFlow(gVals){
           <div>
             <div class="flow-label">Bugün hazır olması gereken nakit</div>
             <div class="flow-val">${fk(nakitGereken)}</div>
-            <div class="flow-sub">peşinat ${fk(pesinar)} + yan giderler ${fk(gToplam)}</div>
+            <div class="flow-sub">peşinat ${fk(pesinar)} + yan giderler ${fk(ceptenToplam)}</div>
           </div>
         </div>
       </div>
@@ -445,42 +483,27 @@ function renderFlow(gVals){
         <div class="pg-cell"><div class="pg-label">Arkadaşının payı (%${Math.round(pp2*100)})</div><div class="pg-val">${fk(nakitGereken*pp2)}</div></div>
       </div>
     </div>
-    <div class="connector"><div class="conn-line"></div></div>
-    <div class="flow-card">
-      <div class="expand-row flow-row" onclick="toggleGider()">
-        <div class="flow-accent" style="background:#888780"></div>
-        <div class="flow-body">
-          <div>
-            <div class="flow-label">Yan giderler toplamı <span class="expand-icon" id="gExpIcon">▼</span></div>
-            <div class="flow-val" style="font-size:16px">${fk(gToplam)}</div>
-            <div class="flow-sub">tapu · dask · sigortalar · banka masrafları</div>
-          </div>
-          <span class="flow-tag" style="background:#ebe9e2;color:#5f5e5a">detay için tıkla</span>
-        </div>
-      </div>
-      <div id="gExpDetail" style="display:${giderExpanded?'block':'none'}" class="gider-detail">${giderRows}</div>
-    </div>
   `;
-  const ic=document.getElementById('gExpIcon');
-  if(ic&&giderExpanded)ic.className='expand-icon open';
+  if(exp1){const ic=document.getElementById('ic1');if(ic)ic.className='expand-icon open';}
+  if(exp2){const ic=document.getElementById('ic2');if(ic)ic.className='expand-icon open';}
 }
 
 function renderOzet(){
-  const{evF,kredi,taksit,toplamFaiz,nakitGereken,gToplam,pesinar}=G;
+  const{evF,kredi,taksit,toplamFaiz,nakitGereken,ceptenToplam,pesinar}=G;
   document.getElementById('ozet').innerHTML=`
     <div class="mc"><div class="ml">Ev fiyatı</div><div class="mv">${fk(evF)}</div></div>
     <div class="mc"><div class="ml">Kredi tutarı</div><div class="mv">${fk(kredi)}</div></div>
     <div class="mc"><div class="ml">Aylık taksit</div><div class="mv">${fk(taksit)}</div></div>
     <div class="mc dn"><div class="ml">Toplam faiz yükü</div><div class="mv">${fk(toplamFaiz)}</div><div class="ms">anapara üstü ${pct((toplamFaiz/kredi)*100)}</div></div>
-    <div class="mc"><div class="ml">Yan giderler</div><div class="mv">${fk(gToplam)}</div></div>
-    <div class="mc hi"><div class="ml">Toplam nakit ihtiyacı</div><div class="mv">${fk(nakitGereken)}</div><div class="ms">peşinat + tüm giderler</div></div>
+    <div class="mc"><div class="ml">Yan giderler (cepten)</div><div class="mv">${fk(ceptenToplam)}</div></div>
+    <div class="mc hi"><div class="ml">Toplam nakit ihtiyacı</div><div class="mv">${fk(nakitGereken)}</div><div class="ms">peşinat + cepten giderler</div></div>
   `;
 }
 
 function renderPartners(){
   const{taksit,kiraIlk,kiraFinal,pp1,pp2,nakitGereken,tavanYil,vadeY,tavan}=G;
-  const n1=kiraIlk*pp1-taksit*pp1,n2=kiraIlk*pp2-taksit*pp2;
-  const nf1=kiraFinal*pp1-taksit*pp1,nf2=kiraFinal*pp2-taksit*pp2;
+  const n1=kiraIlk*pp1-taksit*pp1, n2=kiraIlk*pp2-taksit*pp2;
+  const nf1=kiraFinal*pp1-taksit*pp1, nf2=kiraFinal*pp2-taksit*pp2;
   document.getElementById('alrt').innerHTML=taksit>kiraIlk
     ?`<div class="al wn">1. yılda taksit kira gelirinden yüksek.${tavanYil>0&&tavanYil<=vadeY?' '+tavanYil+'. yılda tavana ('+fk(tavan)+') ulaşıp sabit kalıyor.':''}</div>`
     :`<div class="al ok">Başlangıçtan itibaren kira taksiti karşılıyor.${tavanYil>0&&tavanYil<=vadeY?' '+tavanYil+'. yılda tavana ('+fk(tavan)+') ulaşıp sabit kalıyor.':''}</div>`;
